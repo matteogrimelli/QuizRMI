@@ -2,7 +2,7 @@
 
 Distributed multiplayer quiz game developed in Java using RMI.
 
-## 📌 Overview
+## Overview
 
 QuizRMI is a distributed application based on a client-server architecture that allows multiple players to participate in quiz matches. The system uses Java RMI (Remote Method Invocation) to enable communication between clients and the server.
 
@@ -10,7 +10,7 @@ The application supports multiple concurrent games, each managed independently b
 
 ---
 
-## 🎯 Features
+## Features
 
 - Multiplayer quiz game
 - Lobby system (create or join via ID)
@@ -22,7 +22,7 @@ The application supports multiple concurrent games, each managed independently b
 
 ---
 
-## 🧠 Architecture
+## Architecture
 
 The system follows a **client-server model**:
 
@@ -66,7 +66,7 @@ The server remains authoritative for all critical decisions, including:
   
 ---
 
-## 🔌 Technologies
+## Technologies
 
 - Java
 - Java RMI
@@ -75,7 +75,7 @@ The server remains authoritative for all critical decisions, including:
 
 ---
 
-## 🔄 Communication Model
+## Communication Model
 
 The system uses:
 
@@ -88,7 +88,7 @@ Example:
 
 ---
 
-## 👥 Game Flow
+## Game Flow
 
 1. User connects to the server
 2. A session is created (no persistent accounts)
@@ -102,7 +102,7 @@ Example:
 
 ---
 
-## 🧩 Game Design
+## Game Design
 
 - Board is fixed (categories + points)
 - Players choose questions without seeing answers
@@ -111,7 +111,7 @@ Example:
 
 ---
 
-## 🔐 Design Choices
+## Design Choices
 
 - No user registration (session-based system)
 - No data persistence after match
@@ -120,7 +120,7 @@ Example:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 src/
 ├── common/
 │ └── remote/ # RMI interfaces
@@ -129,7 +129,7 @@ src/
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### 1. Start the server
 Run: QuizServerMain
@@ -139,7 +139,7 @@ Run: QuizClientMain
 
 ---
 
-## 📌 Future Improvements
+## Future Improvements
 
 - GUI (JavaFX or Swing)
 - Timer for answers
@@ -150,7 +150,7 @@ Run: QuizClientMain
 
 ---
 
-## 👨‍🎓 Academic Context
+## Academic Context
 
 This project was developed for the course:
 
@@ -164,6 +164,6 @@ It demonstrates:
 
 ---
 
-## 📝 Author
+## Author
 
 Matteo Grimelli
