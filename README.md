@@ -39,6 +39,31 @@ The system follows a **client-server model**:
 - Receives asynchronous updates via callbacks
 - Implements part of the logic (not just passive)
 
+## Distributed Logic
+
+To ensure that the system is composed of actual distributed components, clients are not implemented as passive terminals.
+
+Each client maintains a local representation of the current lobby and game state, including:
+- visible game board
+- current turn
+- current question
+- local UI state
+- displayed scores
+
+Clients also perform a minimal amount of application logic, such as:
+- validating user actions before sending requests
+- preventing invalid board selections
+- preventing multiple answers to the same question
+- handling local countdown visualization
+- updating the interface in response to asynchronous server callbacks
+
+The server remains authoritative for all critical decisions, including:
+- board validation
+- answer checking
+- score updates
+- turn management
+- official game state
+  
 ---
 
 ## 🔌 Technologies
