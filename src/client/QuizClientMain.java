@@ -12,7 +12,8 @@ public class QuizClientMain {
         try {
             // Recupera il riferimento remoto al servizio pubblicato dal server
             QuizService service = (QuizService) Naming.lookup("rmi://localhost/QuizService");
-
+            
+            @SuppressWarnings("resource")
             Scanner scanner = new Scanner(System.in);
 
             System.out.print("Inserisci il tuo nome: ");
