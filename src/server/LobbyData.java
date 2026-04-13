@@ -1,5 +1,6 @@
 package server;
 
+import common.model.GameState;
 import common.model.LobbyState;
 import common.model.PlayerInfo;
 
@@ -11,6 +12,7 @@ public class LobbyData {
     private final String ownerSessionId;
     private final List<String> playerSessionIds;
     private boolean started;
+    private GameState gameState;
 
     public LobbyData(String lobbyId, String ownerSessionId) {
         this.lobbyId = lobbyId;
@@ -52,5 +54,17 @@ public class LobbyData {
 
     public LobbyState toLobbyState(List<PlayerInfo> players) {
         return new LobbyState(lobbyId, ownerSessionId, players, started);
+    }
+
+    public GameState getGameState() {
+    return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+    
+    public void removePlayer(String sessionId) {
+        playerSessionIds.remove(sessionId);
     }
 }

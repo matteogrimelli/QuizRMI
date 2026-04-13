@@ -1,5 +1,6 @@
 package common.remote;
 
+import common.model.GameState;
 import common.model.LobbyState;
 
 import java.rmi.Remote;
@@ -10,4 +11,7 @@ public interface ClientCallback extends Remote {
     void onLobbyUpdated(LobbyState lobbyState) throws RemoteException;
 
     void onMessage(String message) throws RemoteException;
+
+    void onGameUpdated(GameState gameState) throws RemoteException;
+    
 }

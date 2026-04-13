@@ -8,33 +8,39 @@ import common.remote.QuizService;
 
 public class QuizClientMain {
 
+    private static void printPrompt() {
+        //System.out.print("\nScegli comando: create | join | state | start | ping | exit\n");
+        ConsoleUtils.printPrompt();
+    }
+
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             QuizService service = (QuizService) Naming.lookup("rmi://localhost/QuizService");
             ClientCallbackImpl callback = new ClientCallbackImpl();
 
-            System.out.print("Inserisci il tuo nome: ");
+            ConsoleUtils.print("Inserisci il tuo nome: ");
             String name = scanner.nextLine();
 
             String sessionId = service.createSession(name, callback);
-            System.out.println("Sessione creata con ID: " + sessionId);
+            ConsoleUtils.println("Sessione creata con ID: " + sessionId);
 
             while (true) {
-                System.out.println("\nScegli comando: create | join | state | start | ping | exit");
+                printPrompt();
                 String command = scanner.nextLine().trim().toLowerCase();
 
                 try {
                     switch (command) {
                         case "create":
+                            ConsoleUtils.println("Creazione Lobby - richiesta al server... ");    
                             String lobbyId = service.createLobby(sessionId);
-                            System.out.println("Lobby creata con ID: " + lobbyId);
+                            ConsoleUtils.println("Lobby creata con ID: " + lobbyId);
                             break;
 
                         case "join":
-                            System.out.print("Inserisci lobby ID: ");
+                            ConsoleUtils.print("Inserisci lobby ID: ");
                             String joinLobbyId = scanner.nextLine().trim().toUpperCase();
                             LobbyState state = service.joinLobby(sessionId, joinLobbyId);
-                            printLobbyState(state);
+                            //printLobbyState(state);
                             break;
 
                         case "state":
@@ -44,20 +50,32 @@ public class QuizClientMain {
 
                         case "start":
                             service.startLobby(sessionId);
-                            System.out.println("Richiesta di avvio inviata.");
+                            ConsoleUtils.println("Richiesta di avvio inviata.");
                             break;
 
                         case "ping":
                             String response = service.ping(name);
-                            System.out.println(response);
+                            ConsoleUtils.println(response);
+                            break;
+
+                        case "leave":
+                            //service.leaveLobby(sessionId);
+                            String leaveMessage = service.leaveLobby(sessionId);
+                            ConsoleUtils.println(leaveMessage);
                             break;
 
                         case "exit":
-                            System.out.println("Chiusura client.");
+                            try {
+                                service.disconnect(sessionId);
+                            } catch (Exception e) {
+                                ConsoleUtils.println("Errore durante la disconnessione: " + e.getMessage());
+                            }
+
+                            ConsoleUtils.println("Chiusura client.");
                             return;
 
                         default:
-                            System.out.println("Comando non riconosciuto.");
+                            ConsoleUtils.println("Comando non riconosciuto.");
                         }
                     } catch (Exception e) {
                     System.err.println("Operazione fallita: " + e.getMessage());
@@ -71,16 +89,16 @@ public class QuizClientMain {
     }
 
     private static void printLobbyState(LobbyState state) {
-        System.out.println("\n--- STATO LOBBY ---");
-        System.out.println("Lobby ID: " + state.getLobbyId());
-        System.out.println("Owner session: " + state.getOwnerSessionId());
-        System.out.println("Started: " + state.isStarted());
-        System.out.println("Players:");
+        ConsoleUtils.println("\n--- STATO LOBBY ---");
+        ConsoleUtils.println("Lobby ID: " + state.getLobbyId());
+        ConsoleUtils.println("Owner session: " + state.getOwnerSessionId());
+        ConsoleUtils.println("Started: " + state.isStarted());
+        ConsoleUtils.println("Players:");
 
         state.getPlayers().forEach(player ->
-                System.out.println(" - " + player.getName() + " | score=" + player.getScore())
+                ConsoleUtils.println(" - " + player.getName() + " | score=" + player.getScore())
         );
 
-        System.out.println("-------------------\n");
+        ConsoleUtils.println("-------------------\n");
     }
 }

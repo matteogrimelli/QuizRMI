@@ -24,4 +24,10 @@ public interface QuizService extends Remote {
 
     String ping(String name) throws RemoteException;
     
+    void selectQuestion(String sessionId, String category, int value) throws RemoteException;
+
+    void disconnect(String sessionId) throws RemoteException;
+
+    String leaveLobby(String sessionId) throws RemoteException;
+
 }
